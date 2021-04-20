@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+
+<div class="container-fluid">
+    <div class="login d-flex align-items-center py-5">
+
+        <!--Content-->
+
+        <div class="container">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col-lg-10 col-xl-7 mx-auto">
+                    <h3 class="display-4">Sign up</h3>
+                    <p class="text-muted mb-4">Please enter your information</p>
+                    <form action="{{ url_for('signup') }}" method="POST">
+                        <div class="form-group mb-3">
+                            <input name="email" id="email" type="email" placeholder="Email address" required=""
+                                autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input name="firstName" id="firstName" type="text" placeholder="First Name" required=""
+                                autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input name="lastName" id="lastName" type="text" placeholder="Last Name" required=""
+                                autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input name="password1" id="password1" type="password" placeholder="Password" required=""
+                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input name="password2" id="password2" type="password" placeholder="Confirm Password"
+                                required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                        </div>
+                        <button type="submit"
+                            class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign
+                            in</button>
+                        <div class="text-center d-flex justify-content-between mt-4">
+                            <p>Already registered? <a href="{{ url_for('login') }}" class="font-italic text-muted">
+                                    <u>Login</u></a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- End -->
+
+    </div>
+</div>
+
+{% endblock %}

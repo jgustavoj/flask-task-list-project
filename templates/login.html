@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <!-- The image half -->
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+
+
+        <!-- The content half -->
+        <div class="col-md-6 bg-light">
+            <div class="login d-flex align-items-center py-5">
+
+                <!-- Content-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-xl-7 mx-auto">
+                            <h3 class="display-4">Login</h3>
+                            <p class="text-muted mb-4">Please enter your login information</p>
+                            <form action="{{ url_for('login') }}" method="POST">
+
+                                <div class="form-group mb-3">
+                                    <input name="email" id="email" type="email" placeholder="Email address" required=""
+                                        autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="password" id="password" type="password" placeholder="Password"
+                                        required=""
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+                                <button type="submit"
+                                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign
+                                    in</button>
+                                <div class="text-center d-flex justify-content-between mt-4">
+                                    <p>Don't have a login? <a href="{{ url_for('signup') }}"
+                                            class="font-italic text-muted">
+                                            <u>Signup</u></a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- End -->
+            </div>
+        </div><!-- End -->
+    </div>
+</div>
+
+{% endblock %}

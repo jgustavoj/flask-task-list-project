@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+Todo App
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<!-- Input field -->
+
+<div class="container d-flex flex-column content">
+    <h1 class="d-flex d-flex justify-content-center">Todo List</h1>
+
+    <form class="d-flex justify-content-between p-2 mb-4" action="{{ url_for('add_task') }}" method="POST">
+        <input class="form-control" type="text" name="content" id="content" placeholder="Enter a new task and due date">
+        <input class="calendar ml-3" type="date" id="dueDate" name="dueDate">
+        <input class="btn btn-primary ml-3" type="submit" value="Add Task" id="aqua">
+    </form>
+
+    <!-- Table header -->
+
+    <div class="list">
+        <div class="list-group list-group-flush">
+            <div class="list-group-item" id="heading__color">
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Pending</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Task</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Due</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Actions</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Todo list content -->
+
+        <ul class="list-group">
+            {% for task in user.todos %}
+            {% if task.complete == false %}
+
+            <li class="list-group-item list-group-item-action list-group-item-info" id="babyblue">
+                <div class="row d-flex align-items-center">
+                    <div class="col-sm">
+                        <label for="minusBox">
+                            <a href="{{ url_for('completed_task', id=task.id)}}">
+                                <i class="far fa-minus-square fa-lg text-danger"></i>
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm">
+                        <label for="{{ task.user.id }}" id="check">{{
+                            task.task
+                            }}</label>
+                    </div>
+                    <div class="col-sm">
+                        {{ task.due_date.date().strftime("%m/%d/%y") }} </div>
+                    <div class="col-sm d-flex align-items-center justify-content-between">
+                        <a href="/update/{{task.id}}" class="btn btn-primary btn-sm" id="aqua"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a class="up" href="#"><i class="fas fa-arrow-circle-up fa-2x"></i></a>
+                        <a class="down" href="#"><i class="fas fa-arrow-circle-down fa-2x"></i></a>
+                    </div>
+
+                </div>
+
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Completed task list header -->
+
+    <h4 class="d-flex d-flex justify-content-start mt-5"> <u>Completed Task</u> </h4>
+    <div class="list">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="heading__color">
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Status</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Task</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Added</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Due</h6>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Actions</h6>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Todo list complete task  -->
+
+        <ul class="list-group">
+            {% for task in user.todos %}
+            {% if task.complete == true %}
+            <li class="list-group-item list-group-item-action list-group-item-info" id="salmon">
+
+                <div class="row d-flex align-items-center">
+                    <div class="col-sm">
+                        <div class="text-success"> <i class="far fa-check-square fa-lg"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div id="completed">{{ task.task }}</div>
+                    </div>
+                    <div class="col-sm">
+                        <div id="completed">{{ task.date_created.date().strftime("%m/%d/%Y") }}</div>
+                    </div>
+                    <div class="col-sm">
+                        <div id="completed">{{ task.due_date.date().strftime("%m/%d/%Y") }}</div>
+                    </div>
+                    <div class="col-sm d-flex align-items-center">
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                            data-target="#delete{{ task.id }}">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Modal -->
+
+    {% for task in user.todos %}
+    {% if task.complete == true %}
+
+    <div class="modal fade" id="delete{{ task.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="text-danger"> Are you sure you want to delete this task?
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-primary" href="{{ url_for('delete_task', id=task.id)}}">
+                        Ok</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% endblock %}
