@@ -21,6 +21,8 @@ login_manager.login_view = 'login'
 login_manager.init_app(app)
 
 
+
+
 """
 Authorization Flask Login
 
@@ -166,5 +168,6 @@ def completed_task(id):
 
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(port=3000)
 
