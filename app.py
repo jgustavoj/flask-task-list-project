@@ -21,7 +21,7 @@ login_manager.login_view = 'login'
 login_manager.init_app(app)
 
 
-db.create_all()
+
 
 """
 Authorization Flask Login
